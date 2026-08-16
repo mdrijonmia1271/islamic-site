@@ -74,13 +74,16 @@
                     <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">শীঘ্রই</span>
                 </a>
 
-                <!-- Dua Management -->
-                <a href="#" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 transition opacity-75">
-                    <div class="flex items-center gap-3">
-                        <span class="text-base">🤲</span>
-                        <span>দোয়া ও জিকির</span>
-                    </div>
-                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">শীঘ্রই</span>
+                <!-- Dua Categories -->
+                <a href="{{ route('admin.dua-categories.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition {{ request()->routeIs('admin.dua-categories.*') ? 'bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                    <span class="text-base">📂</span>
+                    <span>দোয়া ক্যাটাগরি (Categories)</span>
+                </a>
+
+                <!-- Duas List -->
+                <a href="{{ route('admin.duas.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition {{ request()->routeIs('admin.duas.*') ? 'bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                    <span class="text-base">🤲</span>
+                    <span>দোয়া ও আযকার (Duas CMS)</span>
                 </a>
 
                 <!-- Articles Management -->

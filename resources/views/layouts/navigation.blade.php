@@ -20,32 +20,32 @@
                 </a>
 
                 <!-- Quran -->
-                <a href="{{ url('/quran') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors">
+                <a href="{{ route('quran.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->is('quran*') || request()->routeIs('quran.*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Quran
                 </a>
 
                 <!-- Hadith -->
-                <a href="{{ url('/hadith') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors">
+                <a href="{{ route('hadith.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->is('hadith*') || request()->routeIs('hadith.*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Hadith
                 </a>
 
                 <!-- Dua & Azkar -->
-                <a href="{{ url('/dua-azkar') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors whitespace-nowrap">
+                <a href="{{ route('duas.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('duas*') || request()->is('dua*') || request()->routeIs('duas.*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Dua &amp; Azkar
                 </a>
 
                 <!-- Prayer Time -->
-                <a href="{{ url('/prayer-time') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors whitespace-nowrap">
+                <a href="{{ url('/prayer-time') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('prayer-time*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Prayer Time
                 </a>
 
                 <!-- Islamic Calendar -->
-                <a href="{{ url('/calendar') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors whitespace-nowrap">
+                <a href="{{ url('/calendar') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('calendar*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Islamic Calendar
                 </a>
 
                 <!-- Articles -->
-                <a href="{{ url('/articles') }}" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800 transition-colors">
+                <a href="{{ url('/articles') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors {{ request()->is('articles*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Articles
                 </a>
 
@@ -196,25 +196,25 @@
 
     <!-- Mobile Navigation Menu Drawer -->
     <div :class="{'block': mobileOpen, 'hidden': !mobileOpen}" class="hidden lg:hidden border-t border-emerald-100 dark:border-gray-800 bg-white/95 dark:bg-gray-900/95 px-4 pt-3 pb-6 space-y-1">
-        <a href="{{ url('/') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium {{ request()->is('/') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
+        <a href="{{ url('/') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('/') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Home
         </a>
-        <a href="{{ url('/quran') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ route('quran.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('quran*') || request()->routeIs('quran.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Quran
         </a>
-        <a href="{{ url('/hadith') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ route('hadith.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('hadith*') || request()->routeIs('hadith.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Hadith
         </a>
-        <a href="{{ url('/dua-azkar') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ route('duas.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('duas*') || request()->is('dua*') || request()->routeIs('duas.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Dua &amp; Azkar
         </a>
-        <a href="{{ url('/prayer-time') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ url('/prayer-time') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('prayer-time*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Prayer Time
         </a>
-        <a href="{{ url('/calendar') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ url('/calendar') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('calendar*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Islamic Calendar
         </a>
-        <a href="{{ url('/articles') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800">
+        <a href="{{ url('/articles') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('articles*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Articles
         </a>
 

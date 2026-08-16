@@ -32,7 +32,7 @@
                     <li><a href="{{ url('/') }}" class="hover:text-emerald-400 transition-colors">Home</a></li>
                     <li><a href="{{ url('/quran') }}" class="hover:text-emerald-400 transition-colors">Quran (কুরআন)</a></li>
                     <li><a href="{{ url('/hadith') }}" class="hover:text-emerald-400 transition-colors">Hadith (হাদিস)</a></li>
-                    <li><a href="{{ url('/dua-azkar') }}" class="hover:text-emerald-400 transition-colors">Dua &amp; Azkar (দোয়া ও জিকির)</a></li>
+                    <li><a href="{{ route('duas.index') }}" class="hover:text-emerald-400 transition-colors">Dua &amp; Azkar (দোয়া ও জিকির)</a></li>
                     <li><a href="{{ url('/prayer-time') }}" class="hover:text-emerald-400 transition-colors">Prayer Time (নামাজের সময়)</a></li>
                 </ul>
             </div>

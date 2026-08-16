@@ -307,7 +307,7 @@
                     <!-- Reference & Link -->
                     <div class="pt-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800">
                         <span>রেফারেন্স: সূরা আল-ইসরা (বনি ইসরাঈল), আয়াত ২৪</span>
-                        <a href="{{ url('/dua-azkar') }}" class="font-semibold text-amber-600 dark:text-amber-400 hover:underline">
+                        <a href="{{ route('duas.index') }}" class="font-semibold text-amber-600 dark:text-amber-400 hover:underline">
                             সমস্ত দোয়া ও জিকির দেখুন &rarr;
                         </a>
                     </div>

@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AyahController;
+use App\Http\Controllers\Admin\DuaCategoryController;
+use App\Http\Controllers\Admin\DuaController as AdminDuaController;
 use App\Http\Controllers\Admin\HadithBookController;
 use App\Http\Controllers\Admin\SurahController;
+use App\Http\Controllers\DuaController;
 use App\Http\Controllers\HadithController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuranController;
@@ -21,6 +24,12 @@ Route::get('/quran/{number}', [QuranController::class, 'show'])->name('quran.sho
 // Public Hadith Module Routes
 Route::get('/hadith', [HadithController::class, 'index'])->name('hadith.index');
 Route::get('/hadith/{hadithBook}', [HadithController::class, 'show'])->name('hadith.show');
+
+// Public Dua & Azkar Module Routes
+Route::get('/duas', [DuaController::class, 'index'])->name('duas.index');
+Route::get('/duas/{duaCategory}', [DuaController::class, 'category'])->name('duas.category');
+Route::redirect('/dua', '/duas');
+Route::redirect('/dua-azkar', '/duas');
 
 // Authenticated User Dashboard
 Route::get('/dashboard', function () {
@@ -50,6 +59,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Hadith Books CRUD
     Route::resource('hadith-books', HadithBookController::class);
+
+    // Dua Categories CRUD
+    Route::resource('dua-categories', DuaCategoryController::class);
+
+    // Duas CRUD
+    Route::resource('duas', AdminDuaController::class);
 });
 
 require __DIR__.'/auth.php';
