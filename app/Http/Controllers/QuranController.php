@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ayah;
 use App\Models\Surah;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -9,41 +10,32 @@ use Illuminate\View\View;
 class QuranController extends Controller
 {
     /**
-     * Display a listing of all Surahs.
+     * Display a listing of all Surahs and handle Quran Search.
      */
     public function index(Request $request): View
     {
-        $query = Surah::query()->withCount('ayahs');
+        $search = $request->input('search');
 
-        if ($search = $request->input('search')) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name_bangla', 'like', "%{$search}%")
-                  ->orWhere('name_english', 'like', "%{$search}%")
-                  ->orWhere('name_arabic', 'like', "%{$search}%")
-                  ->orWhere('number', $search);
-            });
+        $surahs = Surah::orderBy('number')->get();
+
+        $results = collect();
+
+        if ($search) {
+            $results = Ayah::with('surah')
+                ->where('arabic_text', 'like', "%{$search}%")
+                ->orWhere('bangla_text', 'like', "%{$search}%")
+                ->get();
         }
-
-        if ($place = $request->input('place')) {
-            $query->where('revelation_place', $place);
-        }
-
-        $surahs = $query->orderBy('number', 'asc')->get();
-
-        $totalSurahs = Surah::count();
-        $makkiCount = Surah::where('revelation_place', 'Makkah')->count();
-        $madaniCount = Surah::where('revelation_place', 'Madinah')->count();
 
         return view('quran.index', compact(
             'surahs',
-            'totalSurahs',
-            'makkiCount',
-            'madaniCount'
+            'results',
+            'search'
         ));
     }
 
     /**
-     * Display the specified Surah along with its Ayahs.
+     * Display the specified Surah along with its Ayahs, previous & next Surahs, and Surah list.
      */
     public function show($surah): View
     {
@@ -57,11 +49,21 @@ class QuranController extends Controller
             $query->orderBy('ayah_number', 'asc');
         }]);
 
-        $prevSurah = Surah::where('number', '<', $surah->number)->orderBy('number', 'desc')->first();
-        $nextSurah = Surah::where('number', '>', $surah->number)->orderBy('number', 'asc')->first();
+        $previousSurah = Surah::where('number', '<', $surah->number)
+            ->orderBy('number', 'desc')
+            ->first();
 
-        $allSurahs = Surah::orderBy('number', 'asc')->get(['id', 'number', 'name_bangla', 'name_english']);
+        $nextSurah = Surah::where('number', '>', $surah->number)
+            ->orderBy('number')
+            ->first();
 
-        return view('quran.show', compact('surah', 'prevSurah', 'nextSurah', 'allSurahs'));
+        $allSurahs = Surah::orderBy('number', 'asc')->get();
+
+        return view('quran.show', compact(
+            'surah',
+            'previousSurah',
+            'nextSurah',
+            'allSurahs'
+        ));
     }
 }
