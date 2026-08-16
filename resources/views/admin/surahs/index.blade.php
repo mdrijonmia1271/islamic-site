@@ -82,6 +82,10 @@
                             <td class="px-4 py-4 font-medium text-white">{{ $surah->ayah_count }}</td>
                             <td class="px-4 py-4 text-right">
                                 <div class="inline-flex items-center gap-1.5">
+                                    <a href="{{ route('admin.surahs.ayahs.index', $surah) }}" class="px-3 py-1.5 rounded-lg bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/50 text-xs font-semibold text-emerald-300 transition flex items-center gap-1">
+                                        <span>📖</span> আয়াতসমূহ ({{ $surah->ayahs()->count() }})
+                                    </a>
+
                                     <a href="{{ route('admin.surahs.edit', $surah) }}" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 transition">
                                         এডিট
                                     </a>

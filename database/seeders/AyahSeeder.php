@@ -101,5 +101,94 @@ class AyahSeeder extends Seeder
                 );
             }
         }
+
+        // 3. Seed Surah Al-Falaq Ayahs (Surah #113)
+        $falaq = Surah::where('number', 113)->first();
+        if ($falaq) {
+            $falaqAyahs = [
+                [
+                    'ayah_number' => 1,
+                    'arabic_text' => 'قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ',
+                    'bangla_text' => 'বলুন, আমি আশ্রয় প্রার্থনা করছি ভোরের প্রতিপালকের,',
+                ],
+                [
+                    'ayah_number' => 2,
+                    'arabic_text' => 'مِن شَرِّ مَا خَلَقَ',
+                    'bangla_text' => 'তিনি যা সৃষ্টি করেছেন তার অনিষ্ট হতে,',
+                ],
+                [
+                    'ayah_number' => 3,
+                    'arabic_text' => 'وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ',
+                    'bangla_text' => 'এবং রাতের অন্ধকারের অনিষ্ট হতে যখন তা সমাগত হয়,',
+                ],
+                [
+                    'ayah_number' => 4,
+                    'arabic_text' => 'وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِي ٱلْعُقَدِ',
+                    'bangla_text' => 'এবং গ্রন্থিতে ফুৎকারকারিণী (যাদুকরদের) অনিষ্ট হতে,',
+                ],
+                [
+                    'ayah_number' => 5,
+                    'arabic_text' => 'وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+                    'bangla_text' => 'এবং হিংসুকের অনিষ্ট হতে যখন সে হিংসা করে।',
+                ],
+            ];
+
+            foreach ($falaqAyahs as $ayahData) {
+                Ayah::updateOrCreate(
+                    [
+                        'surah_id' => $falaq->id,
+                        'ayah_number' => $ayahData['ayah_number'],
+                    ],
+                    $ayahData
+                );
+            }
+        }
+
+        // 4. Seed Surah An-Nas Ayahs (Surah #114)
+        $nas = Surah::where('number', 114)->first();
+        if ($nas) {
+            $nasAyahs = [
+                [
+                    'ayah_number' => 1,
+                    'arabic_text' => 'قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ',
+                    'bangla_text' => 'বলুন, আমি আশ্রয় প্রার্থনা করছি মানুষের প্রতিপালকের,',
+                ],
+                [
+                    'ayah_number' => 2,
+                    'arabic_text' => 'مَلِكِ ٱلنَّاسِ',
+                    'bangla_text' => 'মানুষের অধিপতির,',
+                ],
+                [
+                    'ayah_number' => 3,
+                    'arabic_text' => 'إِلَٰهِ ٱلنَّاسِ',
+                    'bangla_text' => 'মানুষের উপাস্যের,',
+                ],
+                [
+                    'ayah_number' => 4,
+                    'arabic_text' => 'مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ',
+                    'bangla_text' => 'আত্মগোপনকারী কুমন্ত্রণাদাতার অনিষ্ট হতে,',
+                ],
+                [
+                    'ayah_number' => 5,
+                    'arabic_text' => 'ٱلَّذِي يُوَسْوِسُ فِي صُدُورِ ٱلنَّاسِ',
+                    'bangla_text' => 'যে মানুষের অন্তরে কুমন্ত্রণা দেয়,',
+                ],
+                [
+                    'ayah_number' => 6,
+                    'arabic_text' => 'مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ',
+                    'bangla_text' => 'জিন ও মানুষের মধ্য থেকে।',
+                ],
+            ];
+
+            foreach ($nasAyahs as $ayahData) {
+                Ayah::updateOrCreate(
+                    [
+                        'surah_id' => $nas->id,
+                        'ayah_number' => $ayahData['ayah_number'],
+                    ],
+                    $ayahData
+                );
+            }
+        }
     }
 }
