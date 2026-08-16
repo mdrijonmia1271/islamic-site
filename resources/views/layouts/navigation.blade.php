@@ -145,6 +145,12 @@
                              class="absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-gray-800 shadow-xl border border-gray-100 dark:border-gray-700 py-1.5 z-50"
                              style="display: none;">
                             
+                            @if (Auth::user()->isAdmin())
+                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-700">
+                                    <span>👑</span> {{ __('Admin Panel') }}
+                                </a>
+                            @endif
+
                             <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
                                 {{ __('Dashboard') }}
                             </a>
@@ -246,6 +252,11 @@
                     <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                 </div>
                 <div class="mt-2 space-y-1">
+                    @if (Auth::user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40">
+                            <span>👑</span> {{ __('Admin Panel') }}
+                        </a>
+                    @endif
                     <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
                         {{ __('Dashboard') }}
                     </a>
