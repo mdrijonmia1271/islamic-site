@@ -35,12 +35,12 @@
                 </a>
 
                 <!-- Prayer Time -->
-                <a href="{{ url('/prayer-time') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('prayer-time*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
+                <a href="{{ route('prayer-times.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('prayer-time*') || request()->routeIs('prayer-times.*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Prayer Time
                 </a>
 
                 <!-- Islamic Calendar -->
-                <a href="{{ url('/calendar') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('calendar*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
+                <a href="{{ route('islamic-calendar.index') }}" class="px-3 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap {{ request()->is('calendar*') || request()->is('islamic-calendar*') || request()->routeIs('islamic-calendar.*') ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-gray-800' }}">
                     Islamic Calendar
                 </a>
 
@@ -208,10 +208,10 @@
         <a href="{{ route('duas.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('duas*') || request()->is('dua*') || request()->routeIs('duas.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Dua &amp; Azkar
         </a>
-        <a href="{{ url('/prayer-time') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('prayer-time*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
+        <a href="{{ route('prayer-times.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('prayer-time*') || request()->routeIs('prayer-times.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Prayer Time
         </a>
-        <a href="{{ url('/calendar') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('calendar*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
+        <a href="{{ route('islamic-calendar.index') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('calendar*') || request()->is('islamic-calendar*') || request()->routeIs('islamic-calendar.*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Islamic Calendar
         </a>
         <a href="{{ url('/articles') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('articles*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">

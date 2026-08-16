@@ -86,6 +86,12 @@
                     <span>দোয়া ও আযকার (Duas CMS)</span>
                 </a>
 
+                <!-- Islamic Events -->
+                <a href="{{ route('admin.islamic-events.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition {{ request()->routeIs('admin.islamic-events.*') ? 'bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                    <span class="text-base">📅</span>
+                    <span>ইসলামিক ক্যালেন্ডার ও দিবস</span>
+                </a>
+
                 <!-- Articles Management -->
                 <a href="#" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 transition opacity-75">
                     <div class="flex items-center gap-3">

@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             AyahSeeder::class,
             HadithSeeder::class,
             DuaCategorySeeder::class,
+            PrayerTimeSeeder::class,
+            IslamicEventSeeder::class,
         ]);
     }
 }

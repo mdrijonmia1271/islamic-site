@@ -92,21 +92,21 @@
                 <!-- Fajr -->
                 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/80 border border-gray-200/70 dark:border-gray-700 text-center hover:border-emerald-500/50 transition">
                     <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">ফজর (Fajr)</span>
-                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">০৪:২২ AM</div>
+                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">০৪:১২ AM</div>
                     <span class="text-[11px] text-gray-400">সূর্যোদয় পর্যন্ত</span>
                 </div>
 
                 <!-- Sunrise -->
                 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/80 border border-gray-200/70 dark:border-gray-700 text-center opacity-80">
                     <span class="text-xs text-amber-600 dark:text-amber-400 font-medium">সূর্যোদয় (Sunrise)</span>
-                    <div class="text-xl sm:text-2xl font-bold text-amber-600 dark:text-amber-400 my-1">০৫:৩৭ AM</div>
+                    <div class="text-xl sm:text-2xl font-bold text-amber-600 dark:text-amber-400 my-1">০৫:৩০ AM</div>
                     <span class="text-[11px] text-gray-400">নিষিদ্ধ সময়</span>
                 </div>
 
                 <!-- Dhuhr -->
                 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/80 border border-gray-200/70 dark:border-gray-700 text-center hover:border-emerald-500/50 transition">
                     <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">যোহর (Dhuhr)</span>
-                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">১২:০৪ PM</div>
+                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">১২:০৫ PM</div>
                     <span class="text-[11px] text-gray-400">ওয়াক্ত শুরু</span>
                 </div>
 
@@ -123,7 +123,7 @@
                 <!-- Maghrib -->
                 <div class="p-4 rounded-2xl bg-slate-50 dark:bg-gray-800/80 border border-gray-200/70 dark:border-gray-700 text-center hover:border-emerald-500/50 transition">
                     <span class="text-xs text-gray-500 dark:text-gray-400 font-medium">মাগরিব (Maghrib)</span>
-                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">০৬:৩০ PM</div>
+                    <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">০৬:৩২ PM</div>
                     <span class="text-[11px] text-gray-400">ইফতারের সময়</span>
                 </div>
 
@@ -133,6 +133,14 @@
                     <div class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white my-1">০৭:৪৮ PM</div>
                     <span class="text-[11px] text-gray-400">তাহাজ্জুদ পর্যন্ত</span>
                 </div>
+            </div>
+
+            <!-- View Full Prayer Times CTA -->
+            <div class="mt-8 text-center">
+                <a href="{{ route('prayer-times.index') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold shadow-lg shadow-emerald-600/30 transition group">
+                    <span>View Full Prayer Times &amp; Location Switcher</span>
+                    <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </a>
             </div>
         </div>
     </section>
