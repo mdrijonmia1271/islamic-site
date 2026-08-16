@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AyahController;
+use App\Http\Controllers\Admin\HadithBookController;
 use App\Http\Controllers\Admin\SurahController;
+use App\Http\Controllers\HadithController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuranController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +17,10 @@ Route::get('/', function () {
 // Public Quran Module Routes
 Route::get('/quran', [QuranController::class, 'index'])->name('quran.index');
 Route::get('/quran/{number}', [QuranController::class, 'show'])->name('quran.show');
+
+// Public Hadith Module Routes
+Route::get('/hadith', [HadithController::class, 'index'])->name('hadith.index');
+Route::get('/hadith/{hadithBook}', [HadithController::class, 'show'])->name('hadith.show');
 
 // Authenticated User Dashboard
 Route::get('/dashboard', function () {
@@ -41,6 +47,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('surahs/{surah}/ayahs/{ayah}/edit', [AyahController::class, 'edit'])->name('surahs.ayahs.edit');
     Route::put('surahs/{surah}/ayahs/{ayah}', [AyahController::class, 'update'])->name('surahs.ayahs.update');
     Route::delete('surahs/{surah}/ayahs/{ayah}', [AyahController::class, 'destroy'])->name('surahs.ayahs.destroy');
+
+    // Hadith Books CRUD
+    Route::resource('hadith-books', HadithBookController::class);
 });
 
 require __DIR__.'/auth.php';

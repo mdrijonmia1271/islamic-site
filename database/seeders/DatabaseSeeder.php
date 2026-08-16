@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             SurahSeeder::class,
             AyahSeeder::class,
+            HadithSeeder::class,
         ]);
     }
 }

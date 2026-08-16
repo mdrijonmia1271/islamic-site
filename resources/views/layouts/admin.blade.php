@@ -59,6 +59,12 @@
                     <span>সূরা ব্যবস্থাপনা (Surahs)</span>
                 </a>
 
+                <!-- Hadith Books Management -->
+                <a href="{{ route('admin.hadith-books.index') }}" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition {{ request()->routeIs('admin.hadith-books.*') ? 'bg-emerald-600 text-white font-semibold shadow-md shadow-emerald-600/30' : 'text-slate-300 hover:bg-slate-800 hover:text-white' }}">
+                    <span class="text-base">📜</span>
+                    <span>হাদিস গ্রন্থ (Hadith Books)</span>
+                </a>
+
                 <!-- Hadith Management -->
                 <a href="#" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800/60 hover:text-slate-200 transition opacity-75">
                     <div class="flex items-center gap-3">
