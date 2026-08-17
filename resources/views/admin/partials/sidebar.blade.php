@@ -73,6 +73,13 @@
             <span>প্রবন্ধ (Articles)</span>
         </a>
 
+        <!-- Islamic Quiz Management (DAY 12) -->
+        <a href="{{ route('quiz.index') }}" target="_blank"
+           class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition text-slate-300 hover:bg-slate-800 hover:text-white">
+            <span class="text-base">🧠</span>
+            <span>ইসলামিক কুইজ (Quiz)</span>
+        </a>
+
         <div class="pt-4 px-3 pb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">
             ইউজার ও পাবলিক সাইট
         </div>

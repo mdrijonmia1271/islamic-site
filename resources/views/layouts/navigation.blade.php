@@ -74,7 +74,7 @@
                         </div>
 
                         <!-- Tasbih -->
-                        <a href="{{ url('/tools/tasbih') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
+                        <a href="{{ route('tasbih') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
                             <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center me-3 group-hover:scale-110 transition-transform">
                                 📿
                             </span>
@@ -107,9 +107,9 @@
                         </a>
 
                         <!-- Islamic Quiz -->
-                        <a href="{{ url('/tools/quiz') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
+                        <a href="{{ route('quiz.index') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
                             <span class="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/60 text-purple-600 dark:text-purple-400 flex items-center justify-center me-3 group-hover:scale-110 transition-transform">
-                                ❓
+                                🧠
                             </span>
                             <div>
                                 <div class="font-medium">Islamic Quiz</div>
@@ -256,7 +256,7 @@
                 </svg>
             </button>
             <div x-show="openTools" class="pl-4 space-y-1 mt-1 border-l-2 border-emerald-200 dark:border-emerald-800 ms-3" style="display: none;">
-                <a href="{{ url('/tools/tasbih') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
+                <a href="{{ route('tasbih') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
                     <span>📿</span> Tasbih
                 </a>
                 <a href="{{ url('/tools/qibla') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
@@ -265,8 +265,8 @@
                 <a href="{{ url('/tools/zakat') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
                     <span>💰</span> Zakat Calculator
                 </a>
-                <a href="{{ url('/tools/quiz') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
-                    <span>❓</span> Islamic Quiz
+                <a href="{{ route('quiz.index') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
+                    <span>🧠</span> Islamic Quiz
                 </a>
             </div>
         </div>

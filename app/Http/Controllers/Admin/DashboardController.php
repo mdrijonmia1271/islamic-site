@@ -11,6 +11,8 @@ use App\Models\Favorite;
 use App\Models\Hadith;
 use App\Models\HadithBook;
 use App\Models\IslamicEvent;
+use App\Models\QuizCategory;
+use App\Models\QuizQuestion;
 use App\Models\Surah;
 use App\Models\User;
 use Illuminate\View\View;
@@ -38,6 +40,8 @@ class DashboardController extends Controller
             'favorites' => Favorite::count(),
             'events' => IslamicEvent::count(),
             'dua_categories' => DuaCategory::count(),
+            'quiz_categories' => QuizCategory::count(),
+            'quiz_questions' => QuizQuestion::count(),
         ];
 
         // Legacy variable support for existing view components

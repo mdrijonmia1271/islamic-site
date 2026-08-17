@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             IslamicEventSeeder::class,
             ArticleCategorySeeder::class,
             ArticleSeeder::class,
+            QuizSeeder::class,
         ]);
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\HadithController;
 use App\Http\Controllers\IslamicCalendarController;
 use App\Http\Controllers\PrayerTimeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuranController;
 use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\SearchController;
@@ -54,6 +55,19 @@ Route::redirect('/calendar', '/islamic-calendar');
 // Public Articles Module Routes
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+
+// Public Digital Tasbih Counter Module Routes (DAY 12)
+Route::get('/tasbih', function () {
+    return view('tasbih.index');
+})->name('tasbih');
+Route::redirect('/tasbeeh', '/tasbih');
+Route::redirect('/tools/tasbih', '/tasbih');
+
+// Public Islamic Quiz Module Routes (DAY 12)
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz/{category:slug}/start', [QuizController::class, 'start'])->name('quiz.start');
+Route::post('/quiz/{category:slug}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::redirect('/tools/quiz', '/quiz');
 
 // Authenticated User Dashboard
 Route::get('/dashboard', function () {
