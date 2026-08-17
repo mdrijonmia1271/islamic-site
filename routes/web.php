@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DuaController as AdminDuaController;
 use App\Http\Controllers\Admin\HadithBookController;
 use App\Http\Controllers\Admin\SurahController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\DuaController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HadithController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\IslamicCalendarController;
 use App\Http\Controllers\PrayerTimeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuranController;
+use App\Http\Controllers\ReadingHistoryController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -58,24 +60,38 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// User Profile, Account & Favorites Routes (Protected by Auth)
+// User Profile, Account, Favorites, Bookmarks & History Routes (Protected by Auth)
 Route::middleware('auth')->group(function () {
     Route::get('/account', function () {
         $user = auth()->user();
         $recentFavorites = $user->favorites()->with('favoritable')->latest()->take(4)->get();
         $favoritesCount = $user->favorites()->count();
-        return view('account.profile', compact('user', 'recentFavorites', 'favoritesCount'));
+        $bookmarksCount = $user->bookmarks()->count();
+        $historyCount = $user->readingHistories()->count();
+        return view('account.profile', compact('user', 'recentFavorites', 'favoritesCount', 'bookmarksCount', 'historyCount'));
     })->name('account.profile');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // Favorites Routes (STEP 10 & STEP 14)
+    // Favorites Routes (DAY 11)
     Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('favorites.index');
     Route::get('/favorites', function() { return redirect()->route('favorites.index'); });
     Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
+    // Bookmarks Routes (6️⃣)
+    Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmarks.index');
+    Route::get('/my-bookmarks', function() { return redirect()->route('bookmarks.index'); });
+    Route::post('/bookmark', [BookmarkController::class, 'store'])->name('bookmark.store');
+    Route::delete('/bookmark', [BookmarkController::class, 'destroy'])->name('bookmark.destroy');
+
+    // Reading History Routes (1️⃣5️⃣)
+    Route::get('/history', [ReadingHistoryController::class, 'index'])->name('history.index');
+    Route::post('/history', [ReadingHistoryController::class, 'store'])->name('history.store');
+    Route::delete('/history/{id}', [ReadingHistoryController::class, 'destroy'])->name('history.destroy');
+    Route::delete('/history', [ReadingHistoryController::class, 'clear'])->name('history.clear');
 });
 
 // Admin Panel Routes (Protected by Auth & Admin Middleware)

@@ -93,22 +93,48 @@
                     @endif
                 </div>
 
-                <!-- Favorite Button -->
-                <div>
+                <!-- Action Buttons: Favorite & Bookmark (7️⃣) -->
+                <div class="flex items-center gap-2">
                     @auth
                         @php
                             $isFavorite = $article->favorites()->where('user_id', auth()->id())->exists();
+                            $isBookmarked = $article->bookmarks()->where('user_id', auth()->id())->exists();
                         @endphp
 
+                        <!-- 🔖 Bookmark Button (7️⃣) -->
+                        @if($isBookmarked)
+                            <form method="POST" action="{{ route('bookmark.destroy') }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="type" value="article">
+                                <input type="hidden" name="id" value="{{ $article->id }}">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-xs font-bold transition shadow-sm" title="বুকমার্ক থেকে সরান">
+                                    <span>🔖</span>
+                                    <span>বুকমার্ক করা</span>
+                                </button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('bookmark.store') }}" class="inline">
+                                @csrf
+                                <input type="hidden" name="type" value="article">
+                                <input type="hidden" name="id" value="{{ $article->id }}">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-amber-600 hover:border-amber-300 transition text-xs font-semibold shadow-sm" title="পরে পড়ার জন্য বুকমার্ক করুন">
+                                    <span>🏷️</span>
+                                    <span>বুকমার্ক</span>
+                                </button>
+                            </form>
+                        @endif
+
+                        <!-- ❤️ Favorite Button -->
                         @if($isFavorite)
                             <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="type" value="article">
                                 <input type="hidden" name="id" value="{{ $article->id }}">
-                                <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-xs font-bold transition shadow-sm">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-xs font-bold transition shadow-sm" title="পছন্দের তালিকা থেকে সরান">
                                     <span>❤️</span>
-                                    <span>সংরক্ষিত (Saved)</span>
+                                    <span>পছন্দের</span>
                                 </button>
                             </form>
                         @else
@@ -116,15 +142,15 @@
                                 @csrf
                                 <input type="hidden" name="type" value="article">
                                 <input type="hidden" name="id" value="{{ $article->id }}">
-                                <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 transition text-xs font-semibold shadow-sm">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-red-600 hover:border-red-300 transition text-xs font-semibold shadow-sm" title="পছন্দের তালিকায় রাখুন">
                                     <span>🤍</span>
-                                    <span>পছন্দের তালিকায় রাখুন</span>
+                                    <span>পছন্দ</span>
                                 </button>
                             </form>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:text-emerald-600 text-xs font-medium transition shadow-sm" title="লগইন করে প্রিয় তালিকাভুক্ত করুন">
-                            <span>🤍</span>
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:text-emerald-600 text-xs font-medium transition shadow-sm" title="লগইন করে সেভ বা বুকমার্ক করুন">
+                            <span>🔖</span>
                             <span>সেভ করতে লগইন করুন</span>
                         </a>
                     @endauth
@@ -265,4 +291,30 @@
 
         </div>
     </div>
+
+    <!-- Automatic Reading History Recording (1️⃣6️⃣) -->
+    @auth
+        <form id="history-form" method="POST" action="{{ route('history.store') }}" class="hidden">
+            @csrf
+            <input type="hidden" name="type" value="article">
+            <input type="hidden" name="id" value="{{ $article->id }}">
+        </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('history-form');
+                if (form) {
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(new FormData(form))
+                    }).catch(err => console.error('History tracking error:', err));
+                }
+            });
+        </script>
+    @endauth
 @endsection

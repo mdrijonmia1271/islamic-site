@@ -162,8 +162,14 @@
                             <a href="{{ route('account.profile') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
                                 <span>👤</span> {{ __('My Account') }}
                             </a>
+                            <a href="{{ route('bookmarks.index') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
+                                <span>🔖</span> {{ __('My Bookmarks') }}
+                            </a>
                             <a href="{{ route('favorites.index') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
                                 <span>❤️</span> {{ __('My Favorites') }}
+                            </a>
+                            <a href="{{ route('history.index') }}" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
+                                <span>📖</span> {{ __('Reading History') }}
                             </a>
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-gray-700">
                                 {{ __('Settings') }}
@@ -281,8 +287,14 @@
                     <a href="{{ route('account.profile') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
                         <span>👤</span> {{ __('My Account') }}
                     </a>
+                    <a href="{{ route('bookmarks.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <span>🔖</span> {{ __('My Bookmarks') }}
+                    </a>
                     <a href="{{ route('favorites.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
                         <span>❤️</span> {{ __('My Favorites') }}
+                    </a>
+                    <a href="{{ route('history.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        <span>📖</span> {{ __('Reading History') }}
                     </a>
                     <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
                         {{ __('Profile') }}

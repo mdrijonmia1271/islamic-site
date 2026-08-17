@@ -104,13 +104,37 @@
                                                 @endif
                                             </div>
 
-                                            <!-- Hadith Favorite Toggle Button (STEP 13) -->
-                                            <div>
+                                            <!-- Hadith Bookmark & Favorite Buttons -->
+                                            <div class="flex items-center gap-1.5">
                                                 @auth
                                                     @php
                                                         $isFavHadith = $hadith->favorites()->where('user_id', auth()->id())->exists();
+                                                        $isBmHadith = $hadith->bookmarks()->where('user_id', auth()->id())->exists();
                                                     @endphp
 
+                                                    <!-- Bookmark Button -->
+                                                    @if($isBmHadith)
+                                                        <form method="POST" action="{{ route('bookmark.destroy') }}" class="inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="type" value="hadith">
+                                                            <input type="hidden" name="id" value="{{ $hadith->id }}">
+                                                            <button type="submit" class="px-2 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="বুকমার্ক থেকে সরান">
+                                                                <span>🔖</span>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form method="POST" action="{{ route('bookmark.store') }}" class="inline">
+                                                            @csrf
+                                                            <input type="hidden" name="type" value="hadith">
+                                                            <input type="hidden" name="id" value="{{ $hadith->id }}">
+                                                            <button type="submit" class="px-2 py-1 rounded-lg text-gray-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পরে পড়ার জন্য বুকমার্ক করুন">
+                                                                <span>🏷️</span>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+
+                                                    <!-- Favorite Button -->
                                                     @if($isFavHadith)
                                                         <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
                                                             @csrf
@@ -118,7 +142,7 @@
                                                             <input type="hidden" name="type" value="hadith">
                                                             <input type="hidden" name="id" value="{{ $hadith->id }}">
                                                             <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="সংরক্ষিত তালিকা থেকে সরান">
-                                                                <span>❤️</span> <span>Saved</span>
+                                                                <span>❤️</span> <span class="hidden sm:inline">Saved</span>
                                                             </button>
                                                         </form>
                                                     @else
@@ -127,13 +151,13 @@
                                                             <input type="hidden" name="type" value="hadith">
                                                             <input type="hidden" name="id" value="{{ $hadith->id }}">
                                                             <button type="submit" class="px-2.5 py-1 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পছন্দের তালিকায় রাখুন">
-                                                                <span>🤍</span> <span>Save</span>
+                                                                <span>🤍</span> <span class="hidden sm:inline">Save</span>
                                                             </button>
                                                         </form>
                                                     @endif
                                                 @else
-                                                    <a href="{{ route('login') }}" class="px-2 py-1 rounded-lg text-gray-400 hover:text-emerald-600 text-xs font-semibold transition" title="সেভ করতে লগইন করুন">
-                                                        <span>🤍</span>
+                                                    <a href="{{ route('login') }}" class="px-2 py-1 rounded-lg text-gray-400 hover:text-emerald-600 text-xs font-semibold transition" title="সেভ বা বুকমার্ক করতে লগইন করুন">
+                                                        <span>🔖</span>
                                                     </a>
                                                 @endauth
                                             </div>
@@ -179,4 +203,32 @@
         </div>
 
     </div>
+
+    <!-- Automatic Reading History Recording for Hadith -->
+    @auth
+        @if(isset($hadiths) && $hadiths->first())
+            <form id="hadith-history-form" method="POST" action="{{ route('history.store') }}" class="hidden">
+                @csrf
+                <input type="hidden" name="type" value="hadith">
+                <input type="hidden" name="id" value="{{ $hadiths->first()->id }}">
+            </form>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('hadith-history-form');
+                    if (form) {
+                        fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams(new FormData(form))
+                        }).catch(err => console.error('Hadith history tracking error:', err));
+                    }
+                });
+            </script>
+        @endif
+    @endauth
 </x-app-layout>

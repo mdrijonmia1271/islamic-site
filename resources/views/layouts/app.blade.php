@@ -72,11 +72,11 @@
         <!-- Footer -->
         @include('layouts.footer')
 
-        <!-- Global AJAX Favorite Script (STEP 18) -->
+        <!-- Global AJAX Favorite & Bookmark Script -->
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 document.addEventListener('submit', function (event) {
-                    const form = event.target.closest('form[action*="favorites"]');
+                    const form = event.target.closest('form[action*="favorites"], form[action*="bookmark"]');
                     if (!form) return;
 
                     event.preventDefault();
@@ -85,6 +85,7 @@
 
                     const formData = new FormData(form);
                     const action = form.getAttribute('action');
+                    const isBookmarkAction = action.includes('bookmark');
                     const method = (form.querySelector('input[name="_method"]')?.value || form.getAttribute('method') || 'POST').toUpperCase();
 
                     const headers = {
@@ -118,11 +119,15 @@
                         .then(data => {
                             if (!data) return;
 
-                            showToast(data.is_favorite ? '❤️ ' + (data.message || 'পছন্দের তালিকায় যুক্ত হয়েছে!') : '🤍 ' + (data.message || 'পছন্দের তালিকা থেকে সরানো হয়েছে।'));
+                            if (isBookmarkAction) {
+                                showToast(data.is_bookmarked ? '🔖 ' + (data.message || 'বুকমার্কে সংরক্ষণ করা হয়েছে!') : '🏷️ ' + (data.message || 'বুকমার্ক সরানো হয়েছে।'));
+                            } else {
+                                showToast(data.is_favorite ? '❤️ ' + (data.message || 'পছন্দের তালিকায় যুক্ত হয়েছে!') : '🤍 ' + (data.message || 'পছন্দের তালিকা থেকে সরানো হয়েছে।'));
+                            }
 
-                            // If deleting on favorites page, smoothly remove the card
+                            // If deleting on index pages, smoothly remove the card
                             const card = form.closest('.group') || form.closest('.favorite-card');
-                            if (window.location.pathname.includes('favorites') && method === 'DELETE' && card) {
+                            if ((window.location.pathname.includes('favorites') || window.location.pathname.includes('bookmarks')) && method === 'DELETE' && card) {
                                 card.style.transition = 'all 0.3s ease';
                                 card.style.opacity = '0';
                                 card.style.transform = 'scale(0.95)';
@@ -131,25 +136,48 @@
                             }
 
                             // Toggle button in-place
-                            if (data.is_favorite) {
-                                form.innerHTML = `
-                                    <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="type" value="${formData.get('type')}">
-                                    <input type="hidden" name="id" value="${formData.get('id')}">
-                                    <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold transition shadow-sm">
-                                        <span>❤️</span> <span>সংরক্ষিত (Saved)</span>
-                                    </button>
-                                `;
+                            if (isBookmarkAction) {
+                                if (data.is_bookmarked) {
+                                    form.innerHTML = `
+                                        <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="type" value="${formData.get('type')}">
+                                        <input type="hidden" name="id" value="${formData.get('id')}">
+                                        <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 text-xs font-bold transition shadow-sm" title="বুকমার্ক থেকে সরান">
+                                            <span>🔖</span> <span>বুকমার্ক করা</span>
+                                        </button>
+                                    `;
+                                } else {
+                                    form.innerHTML = `
+                                        <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
+                                        <input type="hidden" name="type" value="${formData.get('type')}">
+                                        <input type="hidden" name="id" value="${formData.get('id')}">
+                                        <button type="submit" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-amber-600 transition text-xs font-semibold shadow-sm" title="পরে পড়ার জন্য বুকমার্ক করুন">
+                                            <span>🏷️</span> <span>বুকমার্ক</span>
+                                        </button>
+                                    `;
+                                }
                             } else {
-                                form.innerHTML = `
-                                    <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
-                                    <input type="hidden" name="type" value="${formData.get('type')}">
-                                    <input type="hidden" name="id" value="${formData.get('id')}">
-                                    <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-red-600 transition text-xs font-semibold shadow-sm">
-                                        <span>🤍</span> <span>পছন্দের তালিকায় রাখুন</span>
-                                    </button>
-                                `;
+                                if (data.is_favorite) {
+                                    form.innerHTML = `
+                                        <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="type" value="${formData.get('type')}">
+                                        <input type="hidden" name="id" value="${formData.get('id')}">
+                                        <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold transition shadow-sm">
+                                            <span>❤️</span> <span>সংরক্ষিত (Saved)</span>
+                                        </button>
+                                    `;
+                                } else {
+                                    form.innerHTML = `
+                                        <input type="hidden" name="_token" value="${headers['X-CSRF-TOKEN']}">
+                                        <input type="hidden" name="type" value="${formData.get('type')}">
+                                        <input type="hidden" name="id" value="${formData.get('id')}">
+                                        <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-red-600 transition text-xs font-semibold shadow-sm">
+                                            <span>🤍</span> <span>পছন্দের তালিকায় রাখুন</span>
+                                        </button>
+                                    `;
+                                }
                             }
                         })
                         .catch(err => {

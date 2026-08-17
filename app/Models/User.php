@@ -82,4 +82,47 @@ class User extends Authenticatable
             ->where('favoritable_id', $model->getKey())
             ->exists();
     }
+
+    /**
+     * Get all bookmarks for the user.
+     */
+    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    /**
+     * Check if user has bookmarked a specific model.
+     */
+    public function hasBookmarked(\Illuminate\Database\Eloquent\Model $model): bool
+    {
+        return $this->bookmarks()
+            ->where('bookmarkable_type', get_class($model))
+            ->where('bookmarkable_id', $model->getKey())
+            ->exists();
+    }
+
+    /**
+     * Get all reading histories for the user.
+     */
+    public function readingHistories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ReadingHistory::class);
+    }
+
+    /**
+     * Record or update reading history for a model.
+     */
+    public function recordReadingHistory(\Illuminate\Database\Eloquent\Model $model): ReadingHistory
+    {
+        return $this->readingHistories()->updateOrCreate(
+            [
+                'readable_type' => get_class($model),
+                'readable_id' => $model->getKey(),
+            ],
+            [
+                'last_read_at' => now(),
+            ]
+        );
+    }
 }

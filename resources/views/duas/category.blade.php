@@ -65,12 +65,36 @@
                         </div>
 
                         <div class="flex items-center gap-2">
-                            <!-- Favorite Toggle Button (STEP 12) -->
+                            <!-- Bookmark & Favorite Buttons -->
                             @auth
                                 @php
                                     $isFavDua = $dua->favorites()->where('user_id', auth()->id())->exists();
+                                    $isBmDua = $dua->bookmarks()->where('user_id', auth()->id())->exists();
                                 @endphp
 
+                                <!-- Bookmark Button -->
+                                @if($isBmDua)
+                                    <form method="POST" action="{{ route('bookmark.destroy') }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="type" value="dua">
+                                        <input type="hidden" name="id" value="{{ $dua->id }}">
+                                        <button type="submit" class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="বুকমার্ক থেকে সরান">
+                                            <span>🔖</span>
+                                        </button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ route('bookmark.store') }}" class="inline">
+                                        @csrf
+                                        <input type="hidden" name="type" value="dua">
+                                        <input type="hidden" name="id" value="{{ $dua->id }}">
+                                        <button type="submit" class="p-2 rounded-xl text-gray-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পরে পড়ার জন্য বুকমার্ক করুন">
+                                            <span>🏷️</span>
+                                        </button>
+                                    </form>
+                                @endif
+
+                                <!-- Favorite Button -->
                                 @if($isFavDua)
                                     <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
                                         @csrf
@@ -78,7 +102,7 @@
                                         <input type="hidden" name="type" value="dua">
                                         <input type="hidden" name="id" value="{{ $dua->id }}">
                                         <button type="submit" class="p-2 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="সংরক্ষিত তালিকা থেকে সরান">
-                                            <span>❤️</span> <span class="hidden sm:inline">Saved</span>
+                                            <span>❤️</span>
                                         </button>
                                     </form>
                                 @else
@@ -87,13 +111,13 @@
                                         <input type="hidden" name="type" value="dua">
                                         <input type="hidden" name="id" value="{{ $dua->id }}">
                                         <button type="submit" class="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পছন্দের তালিকায় রাখুন">
-                                            <span>🤍</span> <span class="hidden sm:inline">Save</span>
+                                            <span>🤍</span>
                                         </button>
                                     </form>
                                 @endif
                             @else
-                                <a href="{{ route('login') }}" class="p-2 rounded-xl text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="সেভ করতে লগইন করুন">
-                                    <span>🤍</span>
+                                <a href="{{ route('login') }}" class="p-2 rounded-xl text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="সেভ বা বুকমার্ক করতে লগইন করুন">
+                                    <span>🔖</span>
                                 </a>
                             @endauth
 
@@ -181,4 +205,32 @@
         </div>
 
     </div>
+
+    <!-- Automatic Reading History Recording for Dua -->
+    @auth
+        @if(isset($duas) && $duas->first())
+            <form id="dua-history-form" method="POST" action="{{ route('history.store') }}" class="hidden">
+                @csrf
+                <input type="hidden" name="type" value="dua">
+                <input type="hidden" name="id" value="{{ $duas->first()->id }}">
+            </form>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('dua-history-form');
+                    if (form) {
+                        fetch(form.action, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams(new FormData(form))
+                        }).catch(err => console.error('Dua history tracking error:', err));
+                    }
+                });
+            </script>
+        @endif
+    @endauth
 </x-app-layout>

@@ -100,15 +100,43 @@
                             {{ $ayah->ayah_number }}
                         </span>
 
-                        <!-- Action Buttons (Copy / Bookmark) -->
+                        <!-- Action Buttons (Copy / Bookmark 8️⃣) -->
                         <div class="flex items-center gap-1.5">
+                            @auth
+                                @php
+                                    $isBmAyah = $ayah->bookmarks()->where('user_id', auth()->id())->exists();
+                                @endphp
+
+                                @if($isBmAyah)
+                                    <form method="POST" action="{{ route('bookmark.destroy') }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="type" value="ayah">
+                                        <input type="hidden" name="id" value="{{ $ayah->id }}">
+                                        <button type="submit" class="p-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 transition text-xs font-bold" title="বুকমার্ক থেকে সরান">
+                                            🔖
+                                        </button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ route('bookmark.store') }}" class="inline">
+                                        @csrf
+                                        <input type="hidden" name="type" value="ayah">
+                                        <input type="hidden" name="id" value="{{ $ayah->id }}">
+                                        <button type="submit" class="p-1.5 rounded-lg text-gray-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-gray-800 transition text-xs" title="পরে পড়ার জন্য আয়াতটি বুকমার্ক করুন">
+                                            🔖
+                                        </button>
+                                    </form>
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}" class="p-1.5 rounded-lg text-gray-400 hover:text-emerald-600 transition text-xs" title="বুকমার্ক করতে লগইন করুন">
+                                    🔖
+                                </a>
+                            @endauth
+
                             <button @click="navigator.clipboard.writeText('{{ addslashes($ayah->arabic_text) }} \n\n{{ addslashes($ayah->bangla_text ?? '') }}'); copiedIndex = {{ $ayah->ayah_number }}; setTimeout(() => copiedIndex = null, 2000)" 
                                     type="button" class="p-1.5 rounded-lg text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 transition text-xs" title="আয়াত কপি করুন">
                                 <span x-show="copiedIndex !== {{ $ayah->ayah_number }}">📋</span>
-                                <span x-show="copiedIndex === {{ $ayah->ayah_number }}" class="text-emerald-600 font-bold">✓ কপি হয়েছে!</span>
-                            </button>
-                            <button type="button" class="p-1.5 rounded-lg text-gray-400 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-gray-800 transition text-xs" title="বুকমার্ক">
-                                🔖
+                                <span x-show="copiedIndex === {{ $ayah->ayah_number }}" class="text-emerald-600 font-bold">✓</span>
                             </button>
                         </div>
                     </div>
@@ -174,4 +202,30 @@
         </div>
 
     </div>
+
+    <!-- Automatic Reading History Recording for Surahs -->
+    @auth
+        <form id="quran-history-form" method="POST" action="{{ route('history.store') }}" class="hidden">
+            @csrf
+            <input type="hidden" name="type" value="surah">
+            <input type="hidden" name="id" value="{{ $surah->id }}">
+        </form>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const form = document.getElementById('quran-history-form');
+                if (form) {
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(new FormData(form))
+                    }).catch(err => console.error('Quran history tracking error:', err));
+                }
+            });
+        </script>
+    @endauth
 </x-app-layout>

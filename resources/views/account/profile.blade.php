@@ -63,50 +63,50 @@
             </div>
         </div>
 
-        <!-- Stats & Quick Navigation Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <!-- User Personal Stats & Collections Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <!-- Favorites Card -->
             <a href="{{ route('favorites.index') }}" class="p-6 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-red-400/50 transition group flex flex-col justify-between">
                 <div class="space-y-2">
                     <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/60 text-red-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
                         ❤️
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">সংরক্ষিত তালিকা</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">আপনার পছন্দের সকল দোয়া, হাদিস ও আর্টিকেল</p>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">পছন্দের তালিকা</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">আপনার প্রিয় বিষয়াদি</p>
                 </div>
                 <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                    <span class="text-2xl font-black text-red-600 dark:text-red-400 font-mono">{{ $favoritesCount }}</span>
-                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">তালিকা দেখুন &rarr;</span>
+                    <span class="text-2xl font-black text-red-600 dark:text-red-400 font-mono">{{ $favoritesCount ?? 0 }}</span>
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">দেখুন &rarr;</span>
                 </div>
             </a>
 
-            <!-- Duas Shortcut -->
-            <a href="{{ route('duas.index') }}" class="p-6 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-emerald-500/40 transition group flex flex-col justify-between">
-                <div class="space-y-2">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        🤲
-                    </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">দোয়া ও আযকার</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">দৈনন্দিন জীবনের প্রয়োজনীয় মাসনূন দোয়া</p>
-                </div>
-                <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                    <span class="text-xs text-gray-400">সকল ক্যাটাগরি</span>
-                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">পড়ুন &rarr;</span>
-                </div>
-            </a>
-
-            <!-- Articles Shortcut -->
-            <a href="{{ route('articles.index') }}" class="p-6 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-teal-500/40 transition group flex flex-col justify-between">
+            <!-- Bookmarks Card -->
+            <a href="{{ route('bookmarks.index') }}" class="p-6 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-teal-400/50 transition group flex flex-col justify-between">
                 <div class="space-y-2">
                     <div class="w-12 h-12 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        ✍️
+                        🔖
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">ইসলামিক প্রবন্ধ</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">জীবনঘনিষ্ঠ প্রামাণ্য ইসলামিক গাইডলাইন</p>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">বুকমার্কসমূহ</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">পরে পড়ার সংরক্ষিত তালিকা</p>
                 </div>
                 <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                    <span class="text-xs text-gray-400">সর্বশেষ বিষয়াবলি</span>
-                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 group-hover:translate-x-1 transition-transform">ব্রাউজ করুন &rarr;</span>
+                    <span class="text-2xl font-black text-teal-600 dark:text-teal-400 font-mono">{{ $bookmarksCount ?? 0 }}</span>
+                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 group-hover:translate-x-1 transition-transform">দেখুন &rarr;</span>
+                </div>
+            </a>
+
+            <!-- Reading History Card (NEW) -->
+            <a href="{{ route('history.index') }}" class="p-6 rounded-3xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-indigo-400/50 transition group flex flex-col justify-between">
+                <div class="space-y-2">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                        📖
+                    </div>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">পড়ার ইতিহাস</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">সাম্প্রতিক পঠিত কন্টেন্ট</p>
+                </div>
+                <div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                    <span class="text-2xl font-black text-indigo-600 dark:text-indigo-400 font-mono">{{ $historyCount ?? 0 }}</span>
+                    <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 group-hover:translate-x-1 transition-transform">ইতিহাস &rarr;</span>
                 </div>
             </a>
         </div>

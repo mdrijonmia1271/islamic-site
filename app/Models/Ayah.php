@@ -52,4 +52,26 @@ class Ayah extends Model
             'favoritable'
         );
     }
+
+    /**
+     * Get all of the ayah's bookmarks.
+     */
+    public function bookmarks(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            Bookmark::class,
+            'bookmarkable'
+        );
+    }
+
+    /**
+     * Get all of the ayah's reading histories.
+     */
+    public function readingHistories(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            ReadingHistory::class,
+            'readable'
+        );
+    }
 }
