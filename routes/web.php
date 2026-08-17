@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\HadithBookController;
 use App\Http\Controllers\Admin\SurahController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DuaController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HadithController;
 use App\Http\Controllers\IslamicCalendarController;
 use App\Http\Controllers\PrayerTimeController;
@@ -57,11 +58,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// User Profile Routes
+// User Profile, Account & Favorites Routes (Protected by Auth)
 Route::middleware('auth')->group(function () {
+    Route::get('/account', function () {
+        $user = auth()->user();
+        $recentFavorites = $user->favorites()->with('favoritable')->latest()->take(4)->get();
+        $favoritesCount = $user->favorites()->count();
+        return view('account.profile', compact('user', 'recentFavorites', 'favoritesCount'));
+    })->name('account.profile');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Favorites Routes (STEP 10 & STEP 14)
+    Route::get('/my-favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::get('/favorites', function() { return redirect()->route('favorites.index'); });
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 });
 
 // Admin Panel Routes (Protected by Auth & Admin Middleware)

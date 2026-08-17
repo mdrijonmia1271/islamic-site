@@ -40,4 +40,15 @@ class Hadith extends Model
     {
         return $this->belongsTo(HadithChapter::class, 'hadith_chapter_id');
     }
+
+    /**
+     * Get all of the hadith's favorites.
+     */
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            Favorite::class,
+            'favoritable'
+        );
+    }
 }

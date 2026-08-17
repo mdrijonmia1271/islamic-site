@@ -41,4 +41,15 @@ class Ayah extends Model
     {
         return $this->belongsTo(Surah::class);
     }
+
+    /**
+     * Get all of the ayah's favorites.
+     */
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            Favorite::class,
+            'favoritable'
+        );
+    }
 }

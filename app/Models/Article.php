@@ -33,4 +33,15 @@ class Article extends Model
             'article_category_id'
         );
     }
+
+    /**
+     * Get all of the article's favorites.
+     */
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            Favorite::class,
+            'favoritable'
+        );
+    }
 }

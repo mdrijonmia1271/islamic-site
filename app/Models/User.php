@@ -63,4 +63,23 @@ class User extends Authenticatable
     {
         return $this->role === 'user';
     }
+
+    /**
+     * Get all favorites for the user.
+     */
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    /**
+     * Check if user has favorited a specific model.
+     */
+    public function hasFavorited(\Illuminate\Database\Eloquent\Model $model): bool
+    {
+        return $this->favorites()
+            ->where('favoritable_type', get_class($model))
+            ->where('favoritable_id', $model->getKey())
+            ->exists();
+    }
 }

@@ -70,26 +70,65 @@
                 <span class="text-gray-800 dark:text-gray-200 font-semibold truncate max-w-[200px] sm:max-w-xs">{{ $article->title }}</span>
             </nav>
 
-            <!-- Category & Date Badge -->
-            <div class="flex flex-wrap items-center gap-3 mb-4">
-                @if($article->category)
-                    <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" 
-                       class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-200 transition">
-                        🏷️ {{ $article->category->name_bangla ?? $article->category->name }}
-                    </a>
-                @endif
+            <!-- Category, Date Badge & Favorite Button (STEP 11) -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    @if($article->category)
+                        <a href="{{ route('articles.index', ['category' => $article->category->slug]) }}" 
+                           class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-200 transition">
+                            🏷️ {{ $article->category->name_bangla ?? $article->category->name }}
+                        </a>
+                    @endif
 
-                @if($article->published_at)
-                    <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                        <span>🗓️</span> {{ $article->published_at->format('d F, Y') }}
-                    </span>
-                @endif
+                    @if($article->published_at)
+                        <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                            <span>🗓️</span> {{ $article->published_at->format('d F, Y') }}
+                        </span>
+                    @endif
 
-                @if($article->views > 0)
-                    <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 font-mono">
-                        <span>👁️</span> {{ number_format($article->views) }} ভিউ
-                    </span>
-                @endif
+                    @if($article->views > 0)
+                        <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 font-mono">
+                            <span>👁️</span> {{ number_format($article->views) }} ভিউ
+                        </span>
+                    @endif
+                </div>
+
+                <!-- Favorite Button -->
+                <div>
+                    @auth
+                        @php
+                            $isFavorite = $article->favorites()->where('user_id', auth()->id())->exists();
+                        @endphp
+
+                        @if($isFavorite)
+                            <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="type" value="article">
+                                <input type="hidden" name="id" value="{{ $article->id }}">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/60 text-xs font-bold transition shadow-sm">
+                                    <span>❤️</span>
+                                    <span>সংরক্ষিত (Saved)</span>
+                                </button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('favorites.store') }}" class="inline">
+                                @csrf
+                                <input type="hidden" name="type" value="article">
+                                <input type="hidden" name="id" value="{{ $article->id }}">
+                                <button type="submit" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:text-red-600 dark:hover:text-red-400 hover:border-red-300 transition text-xs font-semibold shadow-sm">
+                                    <span>🤍</span>
+                                    <span>পছন্দের তালিকায় রাখুন</span>
+                                </button>
+                            </form>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:text-emerald-600 text-xs font-medium transition shadow-sm" title="লগইন করে প্রিয় তালিকাভুক্ত করুন">
+                            <span>🤍</span>
+                            <span>সেভ করতে লগইন করুন</span>
+                        </a>
+                    @endauth
+                </div>
             </div>
 
             <!-- Main Title -->

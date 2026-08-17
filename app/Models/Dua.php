@@ -37,4 +37,15 @@ class Dua extends Model
     {
         return $this->belongsTo(DuaCategory::class, 'dua_category_id');
     }
+
+    /**
+     * Get all of the dua's favorites.
+     */
+    public function favorites(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(
+            Favorite::class,
+            'favoritable'
+        );
+    }
 }

@@ -64,12 +64,46 @@
                             @endif
                         </div>
 
-                        <!-- 1-Click Copy Button -->
-                        <button @click="navigator.clipboard.writeText('{{ addslashes($dua->arabic_text) }} \n\nউচ্চারণ: {{ addslashes($dua->transliteration ?? '') }} \n\nঅর্থ: {{ addslashes($dua->bangla_meaning ?? '') }} \n\n[{{ addslashes($dua->reference ?? '') }}]'); copiedIndex = {{ $dua->id }}; setTimeout(() => copiedIndex = null, 2000)" 
-                                type="button" class="p-2 rounded-xl text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 transition text-xs font-semibold flex items-center gap-1" title="দু'আ কপি করুন">
-                            <span x-show="copiedIndex !== {{ $dua->id }}">📋 কপি করুন</span>
-                            <span x-show="copiedIndex === {{ $dua->id }}" class="text-emerald-600 font-bold">✓ কপি হয়েছে!</span>
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <!-- Favorite Toggle Button (STEP 12) -->
+                            @auth
+                                @php
+                                    $isFavDua = $dua->favorites()->where('user_id', auth()->id())->exists();
+                                @endphp
+
+                                @if($isFavDua)
+                                    <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="type" value="dua">
+                                        <input type="hidden" name="id" value="{{ $dua->id }}">
+                                        <button type="submit" class="p-2 rounded-xl bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="সংরক্ষিত তালিকা থেকে সরান">
+                                            <span>❤️</span> <span class="hidden sm:inline">Saved</span>
+                                        </button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ route('favorites.store') }}" class="inline">
+                                        @csrf
+                                        <input type="hidden" name="type" value="dua">
+                                        <input type="hidden" name="id" value="{{ $dua->id }}">
+                                        <button type="submit" class="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পছন্দের তালিকায় রাখুন">
+                                            <span>🤍</span> <span class="hidden sm:inline">Save</span>
+                                        </button>
+                                    </form>
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}" class="p-2 rounded-xl text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="সেভ করতে লগইন করুন">
+                                    <span>🤍</span>
+                                </a>
+                            @endauth
+
+                            <!-- 1-Click Copy Button -->
+                            <button @click="navigator.clipboard.writeText('{{ addslashes($dua->arabic_text) }} \n\nউচ্চারণ: {{ addslashes($dua->transliteration ?? '') }} \n\nঅর্থ: {{ addslashes($dua->bangla_meaning ?? '') }} \n\n[{{ addslashes($dua->reference ?? '') }}]'); copiedIndex = {{ $dua->id }}; setTimeout(() => copiedIndex = null, 2000)" 
+                                    type="button" class="p-2 rounded-xl text-gray-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-gray-800 transition text-xs font-semibold flex items-center gap-1" title="দু'আ কপি করুন">
+                                <span x-show="copiedIndex !== {{ $dua->id }}">📋 কপি</span>
+                                <span x-show="copiedIndex === {{ $dua->id }}" class="text-emerald-600 font-bold">✓ কপি হয়েছে!</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Arabic Text -->

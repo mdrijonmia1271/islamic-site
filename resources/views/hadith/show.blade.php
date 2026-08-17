@@ -93,14 +93,50 @@
                                 @foreach ($chapter->hadiths as $hadith)
                                     <div class="p-5 rounded-2xl bg-slate-50 dark:bg-gray-800/60 border border-gray-200/70 dark:border-gray-700/60 space-y-3">
                                         <div class="flex items-center justify-between text-xs">
-                                            <span class="font-bold text-emerald-700 dark:text-emerald-300">
-                                                হাদিস নং #{{ $hadith->hadith_number }}
-                                            </span>
-                                            @if ($hadith->grade)
-                                                <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
-                                                    মান: {{ $hadith->grade }}
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-emerald-700 dark:text-emerald-300">
+                                                    হাদিস নং #{{ $hadith->hadith_number }}
                                                 </span>
-                                            @endif
+                                                @if ($hadith->grade)
+                                                    <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60">
+                                                        মান: {{ $hadith->grade }}
+                                                    </span>
+                                                @endif
+                                            </div>
+
+                                            <!-- Hadith Favorite Toggle Button (STEP 13) -->
+                                            <div>
+                                                @auth
+                                                    @php
+                                                        $isFavHadith = $hadith->favorites()->where('user_id', auth()->id())->exists();
+                                                    @endphp
+
+                                                    @if($isFavHadith)
+                                                        <form method="POST" action="{{ route('favorites.destroy') }}" class="inline">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <input type="hidden" name="type" value="hadith">
+                                                            <input type="hidden" name="id" value="{{ $hadith->id }}">
+                                                            <button type="submit" class="px-2.5 py-1 rounded-lg bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 text-xs font-bold flex items-center gap-1 transition shadow-sm" title="সংরক্ষিত তালিকা থেকে সরান">
+                                                                <span>❤️</span> <span>Saved</span>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form method="POST" action="{{ route('favorites.store') }}" class="inline">
+                                                            @csrf
+                                                            <input type="hidden" name="type" value="hadith">
+                                                            <input type="hidden" name="id" value="{{ $hadith->id }}">
+                                                            <button type="submit" class="px-2.5 py-1 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-gray-800 text-xs font-semibold flex items-center gap-1 transition" title="পছন্দের তালিকায় রাখুন">
+                                                                <span>🤍</span> <span>Save</span>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    <a href="{{ route('login') }}" class="px-2 py-1 rounded-lg text-gray-400 hover:text-emerald-600 text-xs font-semibold transition" title="সেভ করতে লগইন করুন">
+                                                        <span>🤍</span>
+                                                    </a>
+                                                @endauth
+                                            </div>
                                         </div>
 
                                         @if ($hadith->narrator)
