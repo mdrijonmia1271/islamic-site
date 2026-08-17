@@ -69,6 +69,20 @@ Route::get('/quiz/{category:slug}/start', [QuizController::class, 'start'])->nam
 Route::post('/quiz/{category:slug}/submit', [QuizController::class, 'submit'])->name('quiz.submit');
 Route::redirect('/tools/quiz', '/quiz');
 
+// Public Zakat Calculator Module Routes (DAY 13)
+Route::get('/zakat-calculator', function () {
+    return view('zakat.index');
+})->name('zakat.calculator');
+Route::redirect('/zakat', '/zakat-calculator');
+Route::redirect('/tools/zakat', '/zakat-calculator');
+
+// Public Qibla Direction Finder Module Routes (DAY 13)
+Route::get('/qibla', function () {
+    return view('qibla.index');
+})->name('qibla');
+Route::redirect('/qibla-finder', '/qibla');
+Route::redirect('/tools/qibla', '/qibla');
+
 // Authenticated User Dashboard
 Route::get('/dashboard', function () {
     return view('dashboard');

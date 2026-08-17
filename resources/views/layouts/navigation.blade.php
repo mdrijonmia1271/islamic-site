@@ -85,7 +85,7 @@
                         </a>
 
                         <!-- Qibla -->
-                        <a href="{{ url('/tools/qibla') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
+                        <a href="{{ route('qibla') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
                             <span class="w-8 h-8 rounded-lg bg-teal-100 dark:bg-teal-900/60 text-teal-600 dark:text-teal-400 flex items-center justify-center me-3 group-hover:scale-110 transition-transform">
                                 🧭
                             </span>
@@ -96,7 +96,7 @@
                         </a>
 
                         <!-- Zakat Calculator -->
-                        <a href="{{ url('/tools/zakat') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
+                        <a href="{{ route('zakat.calculator') }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
                             <span class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400 flex items-center justify-center me-3 group-hover:scale-110 transition-transform">
                                 💰
                             </span>
@@ -259,10 +259,10 @@
                 <a href="{{ route('tasbih') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
                     <span>📿</span> Tasbih
                 </a>
-                <a href="{{ url('/tools/qibla') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
+                <a href="{{ route('qibla') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
                     <span>🧭</span> Qibla
                 </a>
-                <a href="{{ url('/tools/zakat') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
+                <a href="{{ route('zakat.calculator') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
                     <span>💰</span> Zakat Calculator
                 </a>
                 <a href="{{ route('quiz.index') }}" class="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-emerald-600">
