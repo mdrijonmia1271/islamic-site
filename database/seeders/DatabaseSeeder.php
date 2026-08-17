@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             DuaCategorySeeder::class,
             PrayerTimeSeeder::class,
             IslamicEventSeeder::class,
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class,
         ]);
     }
 }

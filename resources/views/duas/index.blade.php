@@ -74,6 +74,18 @@
                     </a>
                 @endforeach
             </div>
+
+            <!-- Related Articles (Internal Linking) -->
+            <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/60 to-slate-900 border border-emerald-800/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1 text-center md:text-left">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">বিশেষ ফজিলতপূর্ণ আমল ও দোয়া</span>
+                    <h3 class="text-base sm:text-lg font-bold text-white">আয়াতুল কুরসীর ফজিলত, অর্থ ও প্রতিটি বাক্যের তাৎপর্য</h3>
+                    <p class="text-xs text-slate-300">কুরআনের সর্বশ্রেষ্ঠ আয়াতের বরকত ও সহিহ হাদিসের আমল সম্পর্কিত বিস্তারিত গাইড পড়ুন।</p>
+                </div>
+                <a href="{{ url('/articles/ayatul-kursi-virtues-meaning') }}" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold whitespace-nowrap shadow-md transition">
+                    প্রবন্ধটি পড়ুন &rarr;
+                </a>
+            </div>
         </div>
     </section>
 </x-app-layout>

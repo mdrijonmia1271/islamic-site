@@ -19,6 +19,8 @@ class AdminDashboardController extends Controller
         $totalSurahs = Surah::count();
         $totalAyahs = Surah::sum('ayah_count');
 
+        $totalArticles = \App\Models\Article::count();
+
         $recentSurahs = Surah::orderBy('number', 'asc')->take(5)->get();
 
         return view('admin.dashboard', compact(
@@ -26,6 +28,7 @@ class AdminDashboardController extends Controller
             'totalAdmins',
             'totalSurahs',
             'totalAyahs',
+            'totalArticles',
             'recentSurahs'
         ));
     }

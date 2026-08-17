@@ -55,6 +55,9 @@
                 <a href="#dua-today" class="px-4 py-2 rounded-full bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-700/50 text-emerald-200 transition flex items-center gap-1.5">
                     <span>🤲</span> আজকের দোয়া
                 </a>
+                <a href="{{ route('articles.index') }}" class="px-4 py-2 rounded-full bg-teal-900/60 hover:bg-teal-800/80 border border-teal-700/50 text-teal-200 transition flex items-center gap-1.5">
+                    <span>✍️</span> ইসলামিক প্রবন্ধ (Articles)
+                </a>
                 <a href="#tools" class="px-4 py-2 rounded-full bg-amber-950/60 hover:bg-amber-900/80 border border-amber-700/50 text-amber-200 transition flex items-center gap-1.5">
                     <span>🛠️</span> ইসলামিক টুলস
                 </a>

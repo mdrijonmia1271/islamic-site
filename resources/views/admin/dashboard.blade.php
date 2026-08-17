@@ -96,6 +96,14 @@
                 </div>
             </a>
 
+            <a href="{{ route('admin.articles.create') }}" class="p-4 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 flex items-center gap-3 text-slate-300 transition group">
+                <span class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition-transform">✍️</span>
+                <div>
+                    <div class="font-bold text-white text-sm">নতুন আর্টিকেল লিখুন</div>
+                    <div class="text-xs text-purple-400">ব্লগ ও এসইও (SEO) কন্টেন্ট</div>
+                </div>
+            </a>
+
             <a href="{{ url('/') }}" target="_blank" class="p-4 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 flex items-center gap-3 text-slate-300 transition group">
                 <span class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center text-xl group-hover:scale-110 transition-transform">🌐</span>
                 <div>

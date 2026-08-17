@@ -137,6 +137,18 @@
                 </p>
             </div>
 
+            <!-- Related Articles on Salah & Tahajjud (Internal Linking) -->
+            <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/60 to-slate-900 border border-emerald-800/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-1 text-center md:text-left">
+                    <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">গবেষণাধর্মী ইসলামিক প্রবন্ধ</span>
+                    <h3 class="text-base sm:text-lg font-bold text-white">তাহাজ্জুদ নামাজের নিয়ম, সময় ও রাকাত নির্দেশিকা</h3>
+                    <p class="text-xs text-slate-300">রাতের শেষ তৃতীয়াংশে আল্লাহর সন্তুষ্টি লাভের সর্বোত্তম নফল সালাতের পূর্ণাঙ্গ নিয়মাবলী পড়ুন।</p>
+                </div>
+                <a href="{{ url('/articles/how-to-perform-tahajjud') }}" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold whitespace-nowrap shadow-md transition">
+                    প্রবন্ধটি পড়ুন &rarr;
+                </a>
+            </div>
+
         </div>
 
     </div>

@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\AyahController;
 use App\Http\Controllers\Admin\DuaCategoryController;
 use App\Http\Controllers\Admin\DuaController as AdminDuaController;
 use App\Http\Controllers\Admin\HadithBookController;
 use App\Http\Controllers\Admin\SurahController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DuaController;
 use App\Http\Controllers\HadithController;
 use App\Http\Controllers\IslamicCalendarController;
@@ -40,6 +42,10 @@ Route::redirect('/prayer-time', '/prayer-times');
 // Public Islamic Calendar Module Routes
 Route::get('/islamic-calendar', [IslamicCalendarController::class, 'index'])->name('islamic-calendar.index');
 Route::redirect('/calendar', '/islamic-calendar');
+
+// Public Articles Module Routes
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
 
 // Authenticated User Dashboard
 Route::get('/dashboard', function () {
@@ -78,6 +84,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Islamic Events CRUD
     Route::resource('islamic-events', \App\Http\Controllers\Admin\IslamicEventController::class);
+
+    // Articles CRUD
+    Route::resource('articles', AdminArticleController::class);
 });
 
 require __DIR__.'/auth.php';

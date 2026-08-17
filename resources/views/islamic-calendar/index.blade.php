@@ -183,5 +183,17 @@
             </div>
         @endif
 
+        <!-- Related Articles on Ramadan & Events (Internal Linking) -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-emerald-950/60 to-slate-900 border border-emerald-800/40 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="space-y-1 text-center md:text-left">
+                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider">পবিত্র মাহে রমজান ও রোজা গাইডলাইন</span>
+                <h3 class="text-base sm:text-lg font-bold text-white">রমজানের রোজার প্রয়োজনীয় নিয়ম, শর্ত ও ফজিলত</h3>
+                <p class="text-xs text-slate-300">সেহরি, ইফতার, রোজা ভঙ্গের কারণ ও বরকতময় রমজানের আমল সম্পর্কে বিস্তারিত প্রবন্ধ পড়ুন।</p>
+            </div>
+            <a href="{{ url('/articles/ramadan-roza-rules') }}" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold whitespace-nowrap shadow-md transition">
+                প্রবন্ধটি পড়ুন &rarr;
+            </a>
+        </div>
+
     </div>
 </x-app-layout>
