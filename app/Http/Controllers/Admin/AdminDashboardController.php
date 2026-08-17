@@ -2,34 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Surah;
-use App\Models\User;
-use Illuminate\View\View;
-
-class AdminDashboardController extends Controller
+class AdminDashboardController extends DashboardController
 {
-    /**
-     * Display the admin dashboard.
-     */
-    public function index(): View
-    {
-        $totalUsers = User::count();
-        $totalAdmins = User::where('role', 'admin')->count();
-        $totalSurahs = Surah::count();
-        $totalAyahs = Surah::sum('ayah_count');
-
-        $totalArticles = \App\Models\Article::count();
-
-        $recentSurahs = Surah::orderBy('number', 'asc')->take(5)->get();
-
-        return view('admin.dashboard', compact(
-            'totalUsers',
-            'totalAdmins',
-            'totalSurahs',
-            'totalAyahs',
-            'totalArticles',
-            'recentSurahs'
-        ));
-    }
+    // Inherits index with full statistics & recent items from DashboardController
 }
