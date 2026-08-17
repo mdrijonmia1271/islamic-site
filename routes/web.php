@@ -14,12 +14,17 @@ use App\Http\Controllers\IslamicCalendarController;
 use App\Http\Controllers\PrayerTimeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuranController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 // Public Home Page
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Global Unified Search Route
+Route::get('/search', [SearchController::class, 'index'])->name('search');
+Route::get('/api/search/suggestions', [SearchController::class, 'suggestions'])->name('search.suggestions');
 
 // Public Quran Module Routes
 Route::get('/quran', [QuranController::class, 'index'])->name('quran.index');

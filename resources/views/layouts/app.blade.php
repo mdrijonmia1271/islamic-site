@@ -8,6 +8,7 @@
         <!-- STEP 14 — Title, Description & Canonical -->
         <title>@yield('title', config('app.name', 'Islamic Site'))</title>
         <meta name="description" content="@yield('meta_description', 'Islamic knowledge, Quran, Hadith, Dua, Prayer Times and Islamic Calendar.')">
+        <meta name="robots" content="@yield('meta_robots', 'index,follow')">
         @hasSection('meta_keywords')
             <meta name="keywords" content="@yield('meta_keywords')">
         @endif

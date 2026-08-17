@@ -120,8 +120,16 @@
                 </div>
             </div>
 
-            <!-- Right Side: User Menu / Auth Controls -->
+            <!-- Right Side: Header Search Input & Auth Controls -->
             <div class="hidden lg:flex items-center space-x-3">
+                <!-- Header Search Box (STEP 4) -->
+                <form action="{{ route('search') }}" method="GET" class="relative flex items-center">
+                    <input type="search" name="q" value="{{ request('q') }}" placeholder="অনুসন্ধান করুন..." 
+                           class="w-36 xl:w-52 pl-9 pr-3 py-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-xs text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:w-60 focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 transition-all duration-300">
+                    <button type="submit" aria-label="Search" class="absolute left-2.5 text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </button>
+                </form>
                 @auth
                     <!-- User Dropdown (when logged in) -->
                     <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
@@ -217,6 +225,16 @@
         <a href="{{ url('/articles') }}" class="block px-3 py-2.5 rounded-lg text-base font-medium transition-colors {{ request()->is('articles*') ? 'text-emerald-700 bg-emerald-50 dark:bg-emerald-950/40 font-semibold' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
             Articles
         </a>
+        <!-- Mobile Search Form (STEP 4) -->
+        <form action="{{ route('search') }}" method="GET" class="px-3 py-2">
+            <div class="relative flex items-center">
+                <input type="search" name="q" value="{{ request('q') }}" placeholder="কুরআন, হাদিস, দোয়া বা প্রবন্ধ খুঁজুন..." 
+                       class="w-full pl-9 pr-4 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:border-emerald-500">
+                <button type="submit" aria-label="Search" class="absolute left-3 text-emerald-600">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </button>
+            </div>
+        </form>
 
         <!-- Mobile Tools Submenu Accordion -->
         <div x-data="{ openTools: false }" class="pt-1">

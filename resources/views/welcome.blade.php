@@ -27,18 +27,18 @@
                 সহজ ভাষায় আল-কুরআন, সহিহ হাদিস, দৈনন্দিন দোয়া, সঠিক নামাজের সময় এবং নিত্যদিনের ইসলামিক টুলস এক সাথে।
             </p>
 
-            <!-- Search Bar Mockup -->
+            <!-- Search Bar -->
             <div class="max-w-2xl mx-auto mb-10">
-                <div class="relative flex items-center">
-                    <input type="text" placeholder="কুরআনের সূরা, আয়াত, হাদিস বা দোয়া অনুসন্ধান করুন..." 
-                           class="w-full pl-12 pr-28 py-4 rounded-2xl bg-white/10 backdrop-blur-md text-white placeholder-emerald-200/60 border border-emerald-500/30 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-sm sm:text-base shadow-xl">
+                <form method="GET" action="{{ route('search') }}" class="relative flex items-center shadow-xl rounded-2xl overflow-hidden">
+                    <input type="text" name="q" placeholder="কুরআনের সূরা, আয়াত, হাদিস, দোয়া বা প্রবন্ধ অনুসন্ধান করুন..." required
+                           class="w-full pl-12 pr-28 py-4 bg-white/10 backdrop-blur-md text-white placeholder-emerald-200/60 border border-emerald-500/30 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 text-sm sm:text-base">
                     <div class="absolute left-4 text-emerald-400">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                     </div>
-                    <button type="button" class="absolute right-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium text-xs sm:text-sm rounded-xl transition shadow">
+                    <button type="submit" class="absolute right-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-medium text-xs sm:text-sm rounded-xl transition shadow">
                         অনুসন্ধান
                     </button>
-                </div>
+                </form>
             </div>
 
             <!-- Quick Action Badges -->
