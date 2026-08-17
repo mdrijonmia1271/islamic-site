@@ -6,28 +6,41 @@
 @section('content')
 <div class="bg-slate-50 dark:bg-gray-950 min-h-screen pb-20">
 
-    <!-- Hero Header -->
-    <section class="relative overflow-hidden bg-gradient-to-b from-teal-950 via-slate-950 to-slate-950 text-white py-12 sm:py-16 border-b border-teal-900/40">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#14b8a6_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
+    <!-- Hero Header with Enhanced Islamic Aesthetics -->
+    <section class="relative overflow-hidden bg-slate-900 text-white py-14 sm:py-20 border-b border-teal-800/40">
+        <!-- Background Ambient Glow & Islamic Pattern -->
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-950 via-slate-900 to-indigo-950"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-teal-500/20 via-transparent to-transparent"></div>
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#2dd4bf_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="text-3xl sm:text-4xl text-amber-300 font-serif block" style="font-family: 'Amiri', serif;">
-                سِجِلُّ القِرَاءَةِ
-            </span>
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight flex items-center justify-center gap-3">
-                <span>📖</span> <span>পড়ার <span class="bg-gradient-to-r from-teal-400 to-amber-300 bg-clip-text text-transparent">ইতিহাস</span></span>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-5">
+            
+            <!-- Arabic Calligraphic Badge with Soft Gold Illumination -->
+            <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 backdrop-blur-md shadow-lg shadow-amber-950/30">
+                <span class="text-xl sm:text-2xl font-serif tracking-wide" style="font-family: 'Amiri', serif;">
+                    سِجِلُّ القِرَاءَةِ
+                </span>
+            </div>
+
+            <!-- Crisp Bengali Main Title with Glowing Emoji -->
+            <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight flex items-center justify-center gap-3 drop-shadow-md">
+                <span class="p-2.5 rounded-2xl bg-teal-500/20 border border-teal-400/30 text-2xl sm:text-3xl shadow-inner">📖</span>
+                <span>পড়ার <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300 bg-clip-text text-transparent">ইতিহাস</span></span>
             </h1>
-            <p class="text-xs sm:text-sm text-teal-200/90 max-w-xl mx-auto leading-relaxed">
+
+            <!-- Subtitle with Crisp Light Contrast -->
+            <p class="text-sm sm:text-base text-teal-100/90 max-w-xl mx-auto leading-relaxed font-medium drop-shadow-sm">
                 আপনার সাম্প্রতিক পঠিত সকল ইসলামিক প্রবন্ধ, সহিহ হাদিস, দু'আ ও পবিত্র কুরআনের আয়াতের সময়ানুক্রমিক তালিকা।
             </p>
 
+            <!-- Action Button: Clear History -->
             @if($history->count() > 0)
-                <div class="pt-2">
+                <div class="pt-3">
                     <form method="POST" action="{{ route('history.clear') }}" onsubmit="return confirm('আপনি কি নিশ্চিত যে সম্পূর্ণ পড়ার ইতিহাস মুছে ফেলতে চান?');" class="inline">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-red-950/60 border border-red-800/80 text-red-300 hover:bg-red-900/80 text-xs font-semibold transition shadow-sm">
-                            <span>🗑️</span>
+                        <button type="submit" class="inline-flex items-center gap-2 px-5 py-2 rounded-2xl bg-red-500/15 hover:bg-red-500/25 border border-red-500/40 text-red-300 hover:text-red-200 text-xs sm:text-sm font-bold transition shadow-lg shadow-red-950/40 backdrop-blur-sm group">
+                            <span class="group-hover:scale-110 transition-transform">🗑️</span>
                             <span>সকল ইতিহাস মুছুন</span>
                         </button>
                     </form>
